@@ -2,7 +2,6 @@ package bacon.john.bitcoinpricewatch.bitcoin;
 
 import com.android.volley.*;
 import com.android.volley.toolbox.*;
-import java.io.File;
 
 /**
  * @class BitcoinService
