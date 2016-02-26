@@ -9,7 +9,6 @@ import com.android.volley.toolbox.*;
  * Fetches data about bitcoin
  */
 public class BitcoinService {
-
     private static BitcoinService sharedInstance;
     private RequestQueue requestQueue;
 
