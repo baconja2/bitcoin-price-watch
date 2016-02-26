@@ -38,8 +38,8 @@ public class CurrencyDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(CurrencyDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(CurrencyDetailFragment.ARG_ITEM_ID));
+            arguments.putString(CurrencyDetailFragment.CURRENCY_CODE,
+                    getIntent().getStringExtra(CurrencyDetailFragment.CURRENCY_CODE));
             CurrencyDetailFragment fragment = new CurrencyDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

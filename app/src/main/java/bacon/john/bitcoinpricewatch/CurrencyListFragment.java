@@ -11,7 +11,6 @@ import java.util.List;
 
 import bacon.john.bitcoinpricewatch.bitcoin.BitcoinCurrencyManager;
 import bacon.john.bitcoinpricewatch.bitcoin.BitcoinCurrencyModel;
-import bacon.john.bitcoinpricewatch.dummy.DummyContent;
 
 /**
  * A list fragment representing a list of Currencies. This fragment
@@ -41,6 +40,8 @@ public class CurrencyListFragment extends ListFragment {
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
+    private List<BitcoinCurrencyModel> mCurrencies;
+
     /**
      * A callback interface that all activities containing this fragment must
      * implement. This mechanism allows activities to be notified of item
@@ -50,7 +51,7 @@ public class CurrencyListFragment extends ListFragment {
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onItemSelected(String code);
     }
 
     /**
@@ -59,7 +60,7 @@ public class CurrencyListFragment extends ListFragment {
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(String code) {
         }
     };
 
@@ -75,6 +76,7 @@ public class CurrencyListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         List<BitcoinCurrencyModel> currencies = BitcoinCurrencyManager.sharedInstance().getCachedCurrencies();
+        mCurrencies = currencies;
 
         if (currencies.size() > 0) {
             setListAdapter(new ArrayAdapter<BitcoinCurrencyModel>(
@@ -83,7 +85,18 @@ public class CurrencyListFragment extends ListFragment {
                     android.R.id.text1,
                     currencies));
         } else {
-            // TODO: fetch currency list from network
+            BitcoinCurrencyManager.sharedInstance().getRemoteCurrencyCodes(new BitcoinCurrencyManager.CurrencyListCallback() {
+                @Override
+                public void callback(List<BitcoinCurrencyModel> currencies, Exception error) {
+
+                    mCurrencies = currencies;
+                    setListAdapter(new ArrayAdapter<BitcoinCurrencyModel>(
+                            getActivity(),
+                            android.R.layout.simple_list_item_activated_1,
+                            android.R.id.text1,
+                            currencies));
+                }
+            });
         }
     }
 
@@ -124,7 +137,7 @@ public class CurrencyListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(mCurrencies.get(position).getCode());
     }
 
     @Override
