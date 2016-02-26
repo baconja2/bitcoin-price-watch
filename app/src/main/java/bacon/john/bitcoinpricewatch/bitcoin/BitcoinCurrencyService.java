@@ -4,9 +4,9 @@ import com.android.volley.*;
 import com.android.volley.toolbox.*;
 
 /**
- * @class BitcoinService
+ * @class BitcoinCurrencyService
  *
- * Fetches data about bitcoin
+ * Fetches data about bitcoin in various currencies
  */
 public class BitcoinCurrencyService {
     private static BitcoinCurrencyService sharedInstance;
