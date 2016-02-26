@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.List;
+
+import bacon.john.bitcoinpricewatch.bitcoin.BitcoinCurrencyManager;
+import bacon.john.bitcoinpricewatch.bitcoin.BitcoinCurrencyModel;
 import bacon.john.bitcoinpricewatch.dummy.DummyContent;
 
 /**
@@ -70,12 +74,17 @@ public class CurrencyListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO: fetch possible currencies from https://api.bitcoinaverage.com/ticker/
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
+        List<BitcoinCurrencyModel> currencies = BitcoinCurrencyManager.sharedInstance().getCachedCurrencies();
+
+        if (currencies.size() > 0) {
+            setListAdapter(new ArrayAdapter<BitcoinCurrencyModel>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_activated_1,
+                    android.R.id.text1,
+                    currencies));
+        } else {
+            // TODO: fetch currency list from network
+        }
     }
 
     @Override

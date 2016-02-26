@@ -15,6 +15,8 @@ public class BitcoinCurrencyModel extends RealmObject {
     private double bid;
     private double last;
 
+    private int updatedAt;
+
     public String getCode() {
         return code;
     }
@@ -36,7 +38,11 @@ public class BitcoinCurrencyModel extends RealmObject {
     public double getLast() {
         return last;
     }
-    public void setLast(double last) {
-        this.last = last;
+    public void setLast(double last) { this.last = last; }
+    public int getUpdatedAt() {
+        return updatedAt;
+    }
+    public void setUpdatedAt(int updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

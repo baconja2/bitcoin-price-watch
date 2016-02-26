@@ -4,6 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import bacon.john.bitcoinpricewatch.bitcoin.BitcoinCurrencyManager;
+import bacon.john.bitcoinpricewatch.bitcoin.BitcoinCurrencyModel;
+import bacon.john.bitcoinpricewatch.localstorage.LocalStorageService;
+
+import java.util.List;
 
 /**
  * An activity representing a list of Currencies. This activity
@@ -33,6 +38,9 @@ public class CurrencyListActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        LocalStorageService.sharedInstance().initialize(getApplicationContext());
+
         setContentView(R.layout.activity_currency_list);
 
         if (findViewById(R.id.currency_detail_container) != null) {
