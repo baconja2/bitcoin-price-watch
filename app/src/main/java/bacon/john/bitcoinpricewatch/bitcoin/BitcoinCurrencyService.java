@@ -8,20 +8,20 @@ import com.android.volley.toolbox.*;
  *
  * Fetches data about bitcoin
  */
-public class BitcoinService {
-    private static BitcoinService sharedInstance;
+public class BitcoinCurrencyService {
+    private static BitcoinCurrencyService sharedInstance;
     private RequestQueue requestQueue;
 
-    private BitcoinService() {
+    private BitcoinCurrencyService() {
         Cache cache = new NoCache();
         Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache, network);
         requestQueue.start();
     }
 
-    public static BitcoinService sharedInstance() {
+    public static BitcoinCurrencyService sharedInstance() {
         if (sharedInstance == null) {
-            sharedInstance = new BitcoinService();
+            sharedInstance = new BitcoinCurrencyService();
         }
         return sharedInstance;
     }
