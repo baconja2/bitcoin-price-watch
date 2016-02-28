@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import bacon.john.bitcoinpricewatch.bitcoin.BitcoinCurrencyManager;
 import bacon.john.bitcoinpricewatch.bitcoin.BitcoinCurrencyModel;
@@ -125,10 +126,12 @@ public class CurrencyDetailFragment extends Fragment {
     private void refreshView() {
         if (getView() != null) {
             if (mCurrency.getUpdatedAt() > 0) {
-                String displayString = "Ask Price: " + mCurrency.getAsk() + "\n\n";
-                displayString += "Bid Price: " + mCurrency.getBid() + "\n\n";
-                displayString += "Last Price: " + mCurrency.getLast() + "\n\n";
-                displayString += "Last Updated: " + mCurrency.getUpdatedAt();
+                String displayString = "Ask Price:\n" + mCurrency.getAsk() + "\n\n";
+                displayString += "Bid Price:\n" + mCurrency.getBid() + "\n\n";
+                displayString += "Last Price:\n" + mCurrency.getLast() + "\n\n";
+
+                DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy\nHH:mm:ss z", Locale.ENGLISH);
+                displayString += "Last Updated:\n" + format.format(new Date(mCurrency.getUpdatedAt()));
 
                 ((TextView)getView().findViewById(R.id.currency_detail)).setText(displayString);
             } else {
