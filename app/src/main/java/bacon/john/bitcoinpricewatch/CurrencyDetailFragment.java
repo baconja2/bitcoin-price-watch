@@ -106,11 +106,15 @@ public class CurrencyDetailFragment extends Fragment {
                 BitcoinCurrencyManager.sharedInstance().getRemoteCurrencyPrices(mCurrency, new BitcoinCurrencyManager.CurrencyCallback() {
                     @Override
                     public void callback(BitcoinCurrencyModel currency, Exception error) {
-                        if (error == null) {
-                            mCurrency = currency;
-                            refreshView();
-                        } else {
-                            ((TextView)getView().findViewById(R.id.currency_detail)).setText("There was a problem loading data for this currency - please try again later.");
+                        if (getActivity() != null) {
+                            if (error == null) {
+                                mCurrency = currency;
+                                refreshView();
+                            } else {
+                                if (getView() != null) {
+                                    ((TextView)getView().findViewById(R.id.currency_detail)).setText("There was a problem loading data for this currency - please try again later.");
+                                }
+                            }
                         }
                     }
                 });
@@ -119,15 +123,17 @@ public class CurrencyDetailFragment extends Fragment {
     }
 
     private void refreshView() {
-        if (mCurrency.getUpdatedAt() > 0) {
-            String displayString = "Ask Price: " + mCurrency.getAsk() + "\n\n";
-            displayString += "Bid Price: " + mCurrency.getBid() + "\n\n";
-            displayString += "Last Price: " + mCurrency.getLast() + "\n\n";
-            displayString += "Last Updated: " + mCurrency.getUpdatedAt();
+        if (getView() != null) {
+            if (mCurrency.getUpdatedAt() > 0) {
+                String displayString = "Ask Price: " + mCurrency.getAsk() + "\n\n";
+                displayString += "Bid Price: " + mCurrency.getBid() + "\n\n";
+                displayString += "Last Price: " + mCurrency.getLast() + "\n\n";
+                displayString += "Last Updated: " + mCurrency.getUpdatedAt();
 
-            ((TextView)getView().findViewById(R.id.currency_detail)).setText(displayString);
-        } else {
-            ((TextView)getView().findViewById(R.id.currency_detail)).setText("Loading...");
+                ((TextView)getView().findViewById(R.id.currency_detail)).setText(displayString);
+            } else {
+                ((TextView)getView().findViewById(R.id.currency_detail)).setText("Loading...");
+            }
         }
     }
 }
