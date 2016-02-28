@@ -32,7 +32,9 @@ public class BitcoinCurrencyManager {
     }
 
     public List<BitcoinCurrencyModel> getCachedCurrencies() {
-        return LocalStorageService.sharedInstance().getRealm().where(BitcoinCurrencyModel.class).findAll();
+        RealmResults<BitcoinCurrencyModel> results = LocalStorageService.sharedInstance().getRealm().where(BitcoinCurrencyModel.class).findAll();
+        results.sort("code");
+        return results;
     }
 
     public BitcoinCurrencyModel getCachedCurrency(String currencyCode) {

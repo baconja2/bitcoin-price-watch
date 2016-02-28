@@ -126,7 +126,8 @@ public class CurrencyDetailFragment extends Fragment {
     private void refreshView() {
         if (getView() != null) {
             if (mCurrency.getUpdatedAt() > 0) {
-                String displayString = "Ask Price:\n" + mCurrency.getAsk() + "\n\n";
+                String displayString = "Currency: " + mCurrency.getCode() + "\n\n";
+                displayString += "Ask Price:\n" + mCurrency.getAsk() + "\n\n";
                 displayString += "Bid Price:\n" + mCurrency.getBid() + "\n\n";
                 displayString += "Last Price:\n" + mCurrency.getLast() + "\n\n";
 
