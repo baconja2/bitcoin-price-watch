@@ -88,13 +88,14 @@ public class CurrencyListFragment extends ListFragment {
             BitcoinCurrencyManager.sharedInstance().getRemoteCurrencyCodes(new BitcoinCurrencyManager.CurrencyListCallback() {
                 @Override
                 public void callback(List<BitcoinCurrencyModel> currencies, Exception error) {
-
-                    mCurrencies = currencies;
-                    setListAdapter(new ArrayAdapter<BitcoinCurrencyModel>(
-                            getActivity(),
-                            android.R.layout.simple_list_item_activated_1,
-                            android.R.id.text1,
-                            currencies));
+                    if (error == null) {
+                        mCurrencies = currencies;
+                        setListAdapter(new CurrencyListAdapter(
+                                getActivity(),
+                                currencies));
+                    } else {
+                        //TODO Error message
+                    }
                 }
             });
         }
