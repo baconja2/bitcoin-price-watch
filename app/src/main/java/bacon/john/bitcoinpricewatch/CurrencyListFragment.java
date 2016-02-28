@@ -79,10 +79,8 @@ public class CurrencyListFragment extends ListFragment {
         mCurrencies = currencies;
 
         if (currencies.size() > 0) {
-            setListAdapter(new ArrayAdapter<BitcoinCurrencyModel>(
+            setListAdapter(new CurrencyListAdapter(
                     getActivity(),
-                    android.R.layout.simple_list_item_activated_1,
-                    android.R.id.text1,
                     currencies));
         } else {
             BitcoinCurrencyManager.sharedInstance().getRemoteCurrencyCodes(new BitcoinCurrencyManager.CurrencyListCallback() {
